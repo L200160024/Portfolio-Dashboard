@@ -1,0 +1,36 @@
+## DATA MART
+CREATE TABLE base_table(
+select
+concat(penjualan.id_invoice, penjualan.id_barang) AS id_penjualan,
+penjualan.id_customer,
+penjualan.tanggal,
+penjualan.brand_id,
+penjualan.id_distributor,
+barang.kode_lini,
+penjualan.lini,
+barang.nama_barang,
+penjualan.jumlah_barang,
+barang.kemasan,
+penjualan.harga,
+penjualan.mata_uang,
+pelanggan.nama AS nama_pelanggan,
+penjualan.id_cabang,
+pelanggan.cabang_sales,
+pelanggan.id_group,
+pelanggan.group
+FROM penjualan
+LEFT JOIN pelanggan ON pelanggan.id_customer = penjualan.id_customer
+LEFT JOIN barang ON barang.kode_barang = penjualan.id_barang)
+
+## DATA AGGREGATE 
+select id_penjualan,
+tanggal,
+MONTHNAME(tanggal) AS bulan,
+nama_barang,
+jumlah_barang,
+lini AS merk,
+kemasan,
+harga,
+nama_pelanggan,
+cabang_sales,
+(jumlah_barang * harga) AS total_penjualan
